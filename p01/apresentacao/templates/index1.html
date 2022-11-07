@@ -1,0 +1,660 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGCARN - Registros de Síndromes Gripais de Caicó</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/globalstyle.css' %}">
+    <!-- Boxicons href="{% static 'css/bicon.css' %}"-->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- Highcharts -->
+    <script src="{% static 'js/js1.js' %}"></script>
+    <script src="{% static 'js/js2.js' %}"></script>
+    <script src="{% static 'js/js3.js' %}"></script>
+    <script src="{% static 'js/js4.js' %}"></script>
+    <script src="{% static 'js/js5.js' %}"></script>
+</head>
+<body>
+    <nav class="menu-lateral fechar">
+        <header>
+            <div class="logo-texto">
+                <a href="#" class="logo"><img src="{% static 'IMAGE/RN2.png' %}" alt="min-logo"></a>
+
+                <div class="texto">
+                    <h2>SIGCARN</h2>
+                    <p>Sindromes Gripais</p>
+                </div>
+            </div>
+
+            <i class='bx bx-chevron-left toggle'></i>
+        </header>
+
+        <div class="barra-menu">
+            <div class="menu">
+                <ul class="menu-links">
+                    <li class="nav-link">
+                        <a href="#section-01">
+                            <i class='bx bx-home-alt-2 icon'></i>
+                            <span class="nav-texto texto">Início</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="#section-02">
+                            <i class='bx bx-bar-chart-alt-2 icon'></i>
+                            <span class="nav-texto texto">Estatísticas</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="#section-03">
+                            <i class='bx bxs-virus icon'></i>
+                            <span class="nav-texto texto">Sobre</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="https://opendatasus.saude.gov.br/dataset/notificacoes-de-sindrome-gripal-api-elasticsearch" rel="external" target="_blank">
+                            <i class='bx bx-data icon'></i>
+                            <span class="nav-texto texto">Base de dados</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="conteudo-baixo">
+                <li class="modo">
+                    <div class="dia-noite">
+                        <i class='bx bx-moon icon noite'></i>
+                        <i class='bx bx-sun icon dia'></i>
+                    </div>
+                    <span class="texto-modo texto">Modo Escuro</span>
+
+                    <div class="toggle-troca">
+                        <span class="troca"></span>
+                    </div>
+                </li>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section section-01" id="section-01">
+        <div class="sigcontent">
+            <div class="sigcontent-texto">
+                <h1>Dados do Sigcarn</h1>
+                <p>Atualizado Semanalmente</p>
+            </div>
+            <div class="infor-card">
+                <div class="cards">
+                    <div class="dadosobt">
+                        <h3 id = "total_casos">00000</h3>
+                        <script>
+                            var totalcasos = {{totaldecasos}}
+                            document.getElementById('total_casos').innerHTML = totalcasos;
+                        </script>
+                        <p>Total de dados coletados</p>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-02" id="section-02">
+            <div class="sigcontent-02">
+                <div class="sigcontent-02-texto">
+                    <h1>Estatísticas de Caicó-RN</h1>
+                    
+                </div>
+                <div class="infor-tabelas">
+                    
+                    <div id="tabela-container-01" class="tabela-container">
+                        <script>
+                            
+                            var numerorac4 = {{contrac4}};
+                            var numerorac1 = {{contrac1}};
+                            var numerorac2 = {{contrac2}};
+                            var numerorac3 = {{contrac3}};
+                            var numerorac5 = {{contrac5}};
+                            var numerorac6 = {{contrac6}};
+                            Highcharts.chart('tabela-container-01', {
+                                chart: {
+                                    type: 'pie',
+                                    options3d: {
+                                        enabled: true,
+                                        alpha: 0
+                                    }
+                                },
+                                title: {
+                                    text: 'Distribuiçao de Raça/Cor'
+                                },
+                                subtitle: {
+                                    text: ''
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        innerSize: 100,
+                                        depth: 30
+                                    }
+                                },
+                                series: [{
+                                    name: 'Total',
+                                    data: [
+                                        ['BRANCA', numerorac1],
+                                        ['PRETA', numerorac2],
+                                        ['PARDA', numerorac3],
+                                        ['AMARELA', numerorac4],
+                                        ['INDÍGENA', numerorac5],
+                                        ['IGNORADO', numerorac6]
+                                    ]
+                                }]
+                            });
+                        </script>
+                    </div>
+                    <div id="tabela-container-02" class="tabela-container">
+                        <script>
+                            var numeroid1 = {{contid1}}
+                            var numeroid2 = {{contid2}}
+                            var numeroid3 = {{contid3}}
+                            var numeroid4 = {{contid4}}
+                            Highcharts.chart('tabela-container-02', {
+                                chart: {
+                                    type: 'pie',
+                                    options3d: {
+                                        enabled: true,
+                                        alpha: 0
+                                    }
+                                },
+                                title: {
+                                    text: 'Distribuição por idade'
+                                },
+                                subtitle: {
+                                    text: ''
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        innerSize: 100,
+                                        depth: 30
+                                    }
+                                },
+                                series: [{
+                                    name: 'Total',
+                                    data: [
+                                        ['De 0 a 12 anos', numeroid1],
+                                        ['De 13 a 18 anos', numeroid2],
+                                        ['De 19 a 60 anos', numeroid3],
+                                        ['Maiores de 60 ', numeroid4],
+                                        
+                                    ]
+                                }]
+                            });
+                        </script>
+                    </div>
+                    <div id="tabela-container10" class="tabela-container">
+                    
+                        <script>
+                            var numerosex = {{contsex}}
+                            var numerosex1 = {{contsex1}}
+
+                            Highcharts.chart('tabela-container10', {
+                                chart: {
+                                    type: 'pie',
+                                    options3d: {
+                                        enabled: true,
+                                        alpha: 0
+                                    }
+                                },
+                                title: {
+                                    text: 'Distribuição por sexo'
+                                },
+                                subtitle: {
+                                    text: ''
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        innerSize: 100,
+                                        depth: 30
+                                    }
+                                },
+                                series: [{
+                                    name: 'Total',
+                                    data: [
+                                        ['MASCULINO', numerosex],
+                                        ['FEMININO', numerosex1],
+                                        
+                                    ]
+                                }]
+                            });
+                            
+                        </script>
+
+                    </div>
+                    
+                    
+                </div>
+                <h4>Sintomas</h4>
+                <div class="infor-tabelas"> 
+                    <div id="tabela-container" class="tabela-container">
+                    
+                        <script>
+                            var numeroas1 = {{contassintomatico}}
+                            var numeroas2 = {{contassintomatico1}}
+
+                            Highcharts.chart('tabela-container', {
+                                chart: {
+                                    type: 'pie',
+                                    options3d: {
+                                        enabled: true,
+                                        alpha: 0
+                                    }
+                                },
+                                title: {
+                                    text: 'Assintomaticos'
+                                },
+                                subtitle: {
+                                    text: ''
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        innerSize: 0,
+                                        depth: 30
+                                    }
+                                },
+                                series: [{
+                                    name: 'Total',
+                                    data: [
+                                        ['SIM', numeroas2],
+                                        ['NÃO', numeroas1],
+                                        
+                                    ]
+                                }]
+                            });
+                            
+                        </script>
+
+                    </div>
+                    <div id="tabela-container-03" class="tabela-container">
+                        <script>
+                            var numerocor1 = {{contcoriza}}
+                            var numerocor2 = {{contcoriza1}}
+
+                            Highcharts.chart('tabela-container-03', {
+                                chart: {
+                                    type: 'pie',
+                                    options3d: {
+                                        enabled: true,
+                                        alpha: 0
+                                    }
+                                },
+                                title: {
+                                    text: 'Coriza'
+                                },
+                                subtitle: {
+                                    text: ''
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        innerSize: 0,
+                                        depth: 30
+                                    }
+                                },
+                                series: [{
+                                    name: 'Total',
+                                    data: [
+                                        ['NÃO', numerocor1],
+                                        ['SIM', numerocor2],
+                                        
+                                    ]
+                                }]
+                            }); 
+                        </script>
+                    </div>
+                    <div id="tabela-container-11" class="tabela-container">
+                        <script>
+                            var numerofeb1 = {{contfebre}}
+                            var numerofeb2 = {{contfebre1}}
+
+                            Highcharts.chart('tabela-container-11', {
+                                chart: {
+                                    type: 'pie',
+                                    options3d: {
+                                        enabled: true,
+                                        alpha: 0
+                                    }
+                                },
+                                title: {
+                                    text: 'Febre'
+                                },
+                                subtitle: {
+                                    text: ''
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        innerSize: 0,
+                                        depth: 30
+                                    }
+                                },
+                                series: [{
+                                    name: 'Total',
+                                    data: [
+                                        ['NÃO', numerofeb1],
+                                        ['SIM', numerofeb2],
+                                        
+                                    ]
+                                }]
+                            }); 
+                        </script>
+                    </div>
+                    <div id="tabela-container-12" class="tabela-container">
+                        <script>
+                            var numerodisp1 = {{contdispineia}}
+                            var numerodisp2 = {{contdispineia1}}
+
+                            Highcharts.chart('tabela-container-12', {
+                                chart: {
+                                    type: 'pie',
+                                    options3d: {
+                                        enabled: true,
+                                        alpha: 0
+                                    }
+                                },
+                                title: {
+                                    text: 'Dispneia'
+                                },
+                                subtitle: {
+                                    text: ''
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        innerSize: 0,
+                                        depth: 30
+                                    }
+                                },
+                                series: [{
+                                    name: 'Total',
+                                    data: [
+                                        ['NÃO', numerodisp1],
+                                        ['SIM', numerodisp2],
+                                        
+                                    ]
+                                }]
+                            }); 
+                        </script>
+                    </div>
+                    <div id="tabela-container-13" class="tabela-container">
+                        <script>
+                            var numerodisgust1 = {{contdisgust}}
+                            var numerodisgust2 = {{contdisgust1}}
+
+                            Highcharts.chart('tabela-container-13', {
+                                chart: {
+                                    type: 'pie',
+                                    options3d: {
+                                        enabled: true,
+                                        alpha: 0
+                                    }
+                                },
+                                title: {
+                                    text: 'Distúrbios gustativos'
+                                },
+                                subtitle: {
+                                    text: ''
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        innerSize: 0,
+                                        depth: 30
+                                    }
+                                },
+                                series: [{
+                                    name: 'Total',
+                                    data: [
+                                        ['NÃO', numerodisgust1],
+                                        ['SIM', numerodisgust2],
+                                        
+                                    ]
+                                }]
+                            }); 
+                        </script>
+                    </div>
+                    <div id="tabela-container-14" class="tabela-container">
+                        <script>
+                            var numerodisol1 = {{contdisol}}
+                            var numerodisol2 = {{contdisol1}}
+
+                            Highcharts.chart('tabela-container-14', {
+                                chart: {
+                                    type: 'pie',
+                                    options3d: {
+                                        enabled: true,
+                                        alpha: 0
+                                    }
+                                },
+                                title: {
+                                    text: 'Distúrbios Olfativos'
+                                },
+                                subtitle: {
+                                    text: ''
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        innerSize: 0,
+                                        depth: 30
+                                    }
+                                },
+                                series: [{
+                                    name: 'Total',
+                                    data: [
+                                        ['NÃO', numerodisol1],
+                                        ['SIM', numerodisol2],
+                                        
+                                    ]
+                                }]
+                            }); 
+                        </script>
+                    </div>
+                    <div id="tabela-container-15" class="tabela-container">
+                        <script>
+                            var numerodorcab1 = {{contdorcab}}
+                            var numerodorcab2 = {{contdorcab1}}
+
+                            Highcharts.chart('tabela-container-15', {
+                                chart: {
+                                    type: 'pie',
+                                    options3d: {
+                                        enabled: true,
+                                        alpha: 0
+                                    }
+                                },
+                                title: {
+                                    text: 'Dor de Cabeça'
+                                },
+                                subtitle: {
+                                    text: ''
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        innerSize: 0,
+                                        depth: 30
+                                    }
+                                },
+                                series: [{
+                                    name: 'Total',
+                                    data: [
+                                        ['NÃO', numerodorcab1],
+                                        ['SIM', numerodorcab2],
+                                        
+                                    ]
+                                }]
+                            }); 
+                        </script>
+                    </div>
+                    <div id="tabela-container-16" class="tabela-container">
+                        <script>
+                            var numerodorg1 = {{contdorg}}
+                            var numerodorg2 = {{contdorg1}}
+
+                            Highcharts.chart('tabela-container-16', {
+                                chart: {
+                                    type: 'pie',
+                                    options3d: {
+                                        enabled: true,
+                                        alpha: 0
+                                    }
+                                },
+                                title: {
+                                    text: 'Dor de Garganta'
+                                },
+                                subtitle: {
+                                    text: ''
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        innerSize: 0,
+                                        depth: 30
+                                    }
+                                },
+                                series: [{
+                                    name: 'Total',
+                                    data: [
+                                        ['NÃO', numerodorg1],
+                                        ['SIM', numerodorg2],
+                                        
+                                    ]
+                                }]
+                            }); 
+                        </script>
+                    </div>
+                    <div id="tabela-container-17" class="tabela-container">
+                        <script>
+                            var numerotosse1 = {{conttosse}}
+                            var numerotosse2 = {{conttosse1}}
+
+                            Highcharts.chart('tabela-container-17', {
+                                chart: {
+                                    type: 'pie',
+                                    options3d: {
+                                        enabled: true,
+                                        alpha: 0
+                                    }
+                                },
+                                title: {
+                                    text: 'Tosse'
+                                },
+                                subtitle: {
+                                    text: ''
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        innerSize: 0,
+                                        depth: 30
+                                    }
+                                },
+                                series: [{
+                                    name: 'Total',
+                                    data: [
+                                        ['NÃO', numerotosse1],
+                                        ['SIM', numerotosse2],
+                                        
+                                    ]
+                                }]
+                            }); 
+                        </script>
+                    </div>
+                    <div id="tabela-container-18" class="tabela-container">
+                        <script>
+                            var numerooutros1 = {{contoutros}}
+                            var numerooutros2 = {{contoutros1}}
+
+                            Highcharts.chart('tabela-container-18', {
+                                chart: {
+                                    type: 'pie',
+                                    options3d: {
+                                        enabled: true,
+                                        alpha: 0
+                                    }
+                                },
+                                title: {
+                                    text: 'Outros Sintomas'
+                                },
+                                subtitle: {
+                                    text: ''
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        innerSize: 0,
+                                        depth: 30
+                                    }
+                                },
+                                series: [{
+                                    name: 'Total',
+                                    data: [
+                                        ['NÃO', numerooutros1],
+                                        ['SIM', numerooutros2],
+                                        
+                                    ]
+                                }]
+                            }); 
+                        </script>
+                    </div>
+                </div>
+                
+            </div>
+    </section>
+
+    <section class="section section-03" id="section-03">
+        <div class="sigcontent-03">
+            <div class="sigcontent-03-texto">
+                <h1>Sobre as Síndromes Gripais</h1>
+            </div>
+            <div class="infor-sobre">
+                <div class="card-sobre" id="card-01">
+                    <div class="card-icon">
+                        <i class='bx bxs-virus'></i>
+                    </div>
+                    <div class="card-text-content">
+                        <h3>O que é Gripe?</h3>
+                        <p>A gripe é uma infecção viral causada pelo <span>vírus influenza</span> que atinge o sistema respiratório, garganta, nariz e pulmões, provocando sintomas como dor de cabeça, dores musculares, fadiga, febre, tosse seca, entre outros.</p>
+                    </div>
+                </div>
+                <div class="card-sobre" id="card-02">
+                    <div class="card-icon">
+                        <i class='bx bxs-virus-block'></i>
+                    </div>
+                    <div class="card-text-content">
+                        <h3>Formas de Contaminação</h3>
+                        <p>A propagação do <span>vírus influenza</span> ocorre principalmente através da saliva de uma pessoa contaminada. Quando ela tosse, espirra ou toca objetos após ter contato com a própria saliva, ela libera cargas desse patógeno no ar e nos objetos que utiliza.</p>
+                    </div>
+                </div> 
+                <div class="card-sobre" id="card-03">
+                    <div class="card-icon">
+                        <i class='bx bxs-heart'></i>
+                    </div>
+                    <div class="card-text-content">
+                        <h3>Prevenção</h3>
+                        <p>A <span>vacinação</span> é a forma mais eficaz de prevenir a gripe, é essencial que ela seja feita anualmente. Além disso, cuidados básicos do dia a dia fazem a diferença, como lavar as mãos com frequência e não compartilhar de objetos de higiene pessoal, essas são boas práticas de prevenção contra a gripe.</p>
+                    </div>
+                </div> 
+            </div> 
+        </div>
+    </section>
+
+    <footer class="section footer">
+        <div class="links-footer">
+            <a href="https://portal.ifrn.edu.br/" rel="external" target="_blank"><img src="{% static 'IMAGE/ifrn.png' %}"  alt=""></a>
+        </div>
+        <div class="area-image-footer">
+            <span>Realizadores:</span>
+            <div class="image-footer">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+            </div>
+        </div>
+    </footer>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
